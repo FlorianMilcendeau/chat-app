@@ -1,0 +1,27 @@
+.formAuth {
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.titleForm {
+  align-self: baseline;
+  max-width: 20rem;
+  font-size: var(--lengthMd3);
+}
+
+.switchForm {
+  color: var(--colorLabel);
+}
+
+.ButtonAuth {
+  margin-top: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .formAuth {
+    width: initial;
+  }
+}

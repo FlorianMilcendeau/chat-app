@@ -1,0 +1,41 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node -r dotenv/config index",
+    "start:dev": "nodemon -r dotenv/config ./src/app.js",
+    "lint": "./node_modules/.bin/eslint --ext ./src/**/*.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "compression": "^1.7.4",
+    "debug": "^4.3.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.10.1",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.2.5",
+    "nodemailer": "^6.6.0",
+    "sequelize": "^6.6.2",
+    "socket.io": "^4.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.26.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.6",
+    "prettier": "^2.2.1",
+    "sequelize-cli": "^6.2.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}

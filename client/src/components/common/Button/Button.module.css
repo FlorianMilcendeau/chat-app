@@ -1,0 +1,26 @@
+.Button {
+  border: none;
+  font-size: var(--lengthMd1);
+  background-color: var(--colorDisabled);
+  width: 100%;
+  max-width: 20rem;
+  padding: 1rem 2rem;
+  border-radius: 0.2rem;
+  transition: opacity 0.05s linear, background-color 0.05s linear;
+  margin: 0.5rem;
+}
+
+.ButtonPrimary {
+  background-color: var(--colorBlue);
+  color: #fff;
+}
+
+.ButtonPrimary:active {
+  opacity: 0.8;
+}
+
+@media screen and (min-width: 768px) {
+  .Button {
+    cursor: pointer;
+  }
+}

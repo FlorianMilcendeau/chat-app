@@ -1,0 +1,85 @@
+version: '3.7'
+
+services:
+    server:
+        container_name: server-dev
+        build:
+            context: ./nginx/dev
+            dockerfile: Dockerfile
+        links:
+            - api
+            - client
+        ports:
+            - '80:80'
+        networks:
+            - sub-etha
+
+    db-dev:
+        container_name: db-dev
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        volumes:
+            - db_vol_dev:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${DEV_DB_NAME}
+            - MYSQL_USER=${DEV_DB_USER}
+            - MYSQL_PASSWORD=${DEV_DB_PASSWORD}
+        ports:
+            - 3306:3306
+        networks:
+            - sub-etha
+
+    api:
+        container_name: api-dev
+        build:
+            context: ./api/
+            dockerfile: Dockerfile.dev
+        volumes:
+            - ./api:/app
+        command: npm run start:dev
+        links:
+            - 'db-dev'
+        environment:
+            - DEV_DB_HOST=db-dev
+            - CI_DB_HOST=db-dev
+            - NODE_ENV=development
+        env_file:
+            - ./.env
+        networks:
+            - sub-etha
+
+    client:
+        container_name: client-dev
+        build:
+            context: ./client
+            dockerfile: Dockerfile.dev
+        volumes:
+            - ./client:/app
+        links:
+            - 'api'
+        environment:
+            - CHOKIDAR_USEPOLLING=true
+            - REACT_APP_SERVER_URL=http://localhost/api
+            - NODE_ENV=development
+        stdin_open: true
+        networks:
+            - sub-etha
+    cypress:
+        image: cypress
+        build: ./e2e
+        container_name: cypress
+        environment:
+            - CYPRESS_baseUrl=http://server
+        volumes:
+            - ./e2e:/app
+        links:
+            - server
+        networks:
+            - sub-etha
+
+volumes:
+    db_vol_dev:
+networks:
+    sub-etha:

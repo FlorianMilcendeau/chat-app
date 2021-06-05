@@ -1,0 +1,63 @@
+.notificationWrapper {
+    transform: translateY(-1.5rem);
+    visibility: hidden;
+    opacity: 0;
+}
+
+.notification {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.3rem;
+    padding: 1em 0;
+}
+
+.notificationError {
+    background-color: #fff6f6;
+    color: #9f3a38;
+    box-shadow: 0 0 0 1px #e0b4b4 inset, 0 0 0 0 transparent;
+}
+
+.notificationValid {
+    background-color: #fcfff5;
+    color: #2c662d;
+    box-shadow: 0 0 0 1px #a3c293 inset, 0 0 0 0 transparent;
+}
+
+.notificationCloseButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 0.3rem;
+    right: 0.5rem;
+}
+
+.notificationOpen {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0%);
+    -webkit-transform: translateY(0%);
+    -moz-transform: translateY(0%);
+    transition: transform 0.2s cubic-bezier(1, 1.16, 1, 1.3),
+        visibility 0s linear, opacity 0.18s linear;
+    -webkit-transition: transform 0.2s cubic-bezier(1, 1.16, 1, 1.3),
+        visibility 0s linear, opacity 0.18s linear;
+    -moz-transition: transform 0.2s cubic-bezier(1, 1.16, 1, 1.3),
+        visibility 0s linear, opacity 0.18s linear;
+}
+
+.notificationClose {
+    visibility: hidden;
+    transform: translateY(-1.5rem);
+    -webkit-transform: translateY(-1.5rem);
+    -moz-transform: translateY(-1.5rem);
+    opacity: 0;
+    transition: transform 0.2s cubic-bezier(1, 1.16, 1, 1.3),
+        visibility 0s linear 0.25s, opacity 0.18s linear;
+    -webkit-transition: transform 0.2s cubic-bezier(1, 1.16, 1, 1.3),
+        visibility 0s linear 0.25s, opacity 0.18s linear;
+    -moz-transition: transform 0.2s cubic-bezier(1, 1.16, 1, 1.3),
+        visibility 0s linear 0.25s, opacity 0.18s linear;
+}

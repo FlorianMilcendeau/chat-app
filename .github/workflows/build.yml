@@ -1,0 +1,45 @@
+name: Build docker
+
+on:
+  push: 
+    branches:
+      - "master"
+  pull_request:
+    branches: [master, develop]
+
+jobs:
+
+  Front-end:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build the Docker-compose-dev image
+      run: docker-compose -f client/docker-compose.dev.yml up -d
+    
+    - name: Run project's linter
+      run: docker-compose -f  client/docker-compose.dev.yml exec -T client-dev npm run lint
+  
+  api:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build the Docker-compose.test image
+      run: |
+        touch ./api/.env
+        echo PORT=${{ secrets.PORT }} >> ./api/.env
+        echo CI_DB_NAME=${{ secrets.CI_DB_NAME }} >> ./api/.env
+        echo CI_DB_USER=${{ secrets.CI_DB_USER }} >> ./api/.env
+        echo CI_DB_PASSWORD=${{ secrets.CI_DB_PASSWORD }} >> ./api/.env
+        echo CI_DB_HOST=${{ secrets.CI_DB_HOST }} >> ./api/.env
+        docker-compose -f api/docker-compose.test.yml up -d
+    
+    - name: Run project's linter
+      run: docker-compose -f  api/docker-compose.test.yml exec -T api npm run lint
+
+

@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  db-test:
+    container_name: db-test
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - db_vol_test:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${CI_DB_NAME}
+      - MYSQL_USER=${CI_DB_USER}
+      - MYSQL_PASSWORD=${CI_DB_PASSWORD}
+    ports:
+      - 3306:3306
+
+  api:
+    container_name: api-test
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    environment:
+      - CI_DB_HOST=db-test
+    volumes:
+      - '.:/usr/src/app:rw'
+    command: npm run start:dev
+    links:
+      - 'db-test'
+    env_file:
+      - ./.env
+    ports:
+      - ${PORT}:8080
+
+volumes:
+  db_vol_test:

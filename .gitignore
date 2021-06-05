@@ -1,0 +1,11 @@
+e2e/node_modules/
+e2e/cypress/screenshots/
+e2e/cypress/videos/
+e2e/cypress/results
+
+# dotenv environment variables file
+.env
+.env.test
+.env*.local
+
+database/mongo-volume

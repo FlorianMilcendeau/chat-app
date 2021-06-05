@@ -1,0 +1,86 @@
+version: '3.7'
+
+services:
+    server:
+        container_name: server-test
+        build:
+            context: ./nginx/dev
+            dockerfile: Dockerfile
+        links:
+            - api
+            - client
+        ports:
+            - '80:80'
+        networks:
+            - sub-etha
+
+    db-test:
+        container_name: db-test
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        volumes:
+            - db_vol_test:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${CI_DB_NAME}
+            - MYSQL_USER=${CI_DB_USER}
+            - MYSQL_PASSWORD=${CI_DB_PASSWORD}
+        ports:
+            - 3306:3306
+        networks:
+            - sub-etha
+
+    api:
+        container_name: api-test
+        build:
+            context: ./api/
+            dockerfile: Dockerfile.test
+        volumes:
+            - ./api:/app
+            - /app/node_modules
+        command: npm run start:dev
+        links:
+            - 'db-test'
+        environment:
+            - CI_DB_HOST=db-test
+            - NODE_ENV=test
+        env_file:
+            - ./.env
+        networks:
+            - sub-etha
+
+    client:
+        container_name: client-test
+        build:
+            context: ./client
+            dockerfile: Dockerfile.test
+        volumes:
+            - ./client:/app
+            - /app/node_modules
+        links:
+            - 'api'
+        environment:
+            - CHOKIDAR_USEPOLLING=true
+            - REACT_APP_SERVER_URL=http://localhost/api
+            - NODE_ENV=test
+        stdin_open: true
+        networks:
+            - sub-etha
+    cypress:
+        image: cypress
+        build: ./e2e
+        container_name: cypress
+        environment:
+            - CYPRESS_baseUrl=http://server
+        volumes:
+            - ./e2e:/app
+        links:
+            - server
+        networks:
+            - sub-etha
+
+volumes:
+    db_vol_test:
+networks:
+    sub-etha:

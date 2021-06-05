@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    /** Color */
+    --colorText: #565360;
+    --colorDisabled: #e1dfe9;
+    --colorDisabledLight: hsl(252, 19%, 95%);
+    --colorLabel: #908e98;
+    --colorBackground: #f2f2f2;
+    --colorDark: rgb(32, 32, 32);
+    --colorBlue: #2f80ed;
+    --colorGreen: #27ae60;
+    --colorRed: #eb5757;
+
+    /** Small size*/
+    --lengthSm1: 0.25rem;
+    --lengthSm2: 0.375rem;
+    --lengthSm3: 0.75rem;
+
+    /** Medium size */
+    --lengthMd1: 1rem;
+    --lengthMd2: 1.25rem;
+    --lengthMd3: 1.5rem;
+
+    /** Large size */
+    --lengthLg1: 2rem;
+    --lengthLg2: 3rem;
+    --lengthLg3: 4rem;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    color: var(--colorText);
+}
+
+a {
+    text-decoration: none;
+    color: var(--colorBlue);
+}
+
+button,
+input,
+a {
+    outline: none;
+}

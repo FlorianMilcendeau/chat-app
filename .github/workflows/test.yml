@@ -1,0 +1,45 @@
+name: Test
+
+on:
+  push: 
+    branches:
+      - "master"
+  pull_request:
+    branches: [master, develop]
+
+jobs:
+
+  Test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Generate key/pair
+      run: node ./api/generateKeyPair.js
+
+    - name: Initalize variables environment
+      run: |
+        touch ./.env
+        echo PORT=${{ secrets.PORT }} >> ./.env
+        echo DB_ROOT_PASSWORD=${{ secrets.DB_ROOT_PASSWORD }} >> ./.env
+        echo CI_DB_NAME=${{ secrets.CI_DB_NAME }} >> ./.env
+        echo CI_DB_USER=${{ secrets.CI_DB_USER }} >> ./.env
+        echo CI_DB_PASSWORD=${{ secrets.CI_DB_PASSWORD }} >> ./.env
+        echo CI_DB_HOST=${{ secrets.CI_DB_HOST }} >> ./.env
+
+    - name: Build project's
+      run: make ENV=test build
+
+    - name: start project's
+      run: make ENV=test start
+
+    - name: Start migration
+      run: make ENV=test migration
+    
+    - name: start seeders
+      run: make ENV=test seed_all
+      
+    - name: Run project's test
+      run: make ENV=test test

@@ -1,0 +1,11 @@
+.textError::before {
+  display: inline;
+  content: '⚠ ';
+}
+
+.textError {
+  display: block;
+  margin-top: 0;
+  color: var(--colorRed);
+  max-width: 16rem;
+}

@@ -1,0 +1,36 @@
+.wrapperDashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.2fr 2fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        'menu banner banner banner'
+        'menu messageArea messageArea messageArea'
+        'menu messageArea messageArea messageArea';
+    height: 100vh;
+}
+
+.banner {
+    grid-area: banner;
+    display: flex;
+    align-items: center;
+    background-color: var(--colorBackground);
+    box-shadow: 0px 1px 5px var(--colorLabel);
+}
+
+.banner > h2 {
+    margin: 0;
+    margin-left: 2.5rem;
+}
+
+.menu {
+    grid-area: menu;
+    background-color: rgb(36, 146, 219);
+}
+
+.messageArea {
+    grid-area: messageArea;
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: var(--colorBackground);
+}
