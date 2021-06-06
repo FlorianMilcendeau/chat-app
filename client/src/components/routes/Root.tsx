@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react';
 import { Redirect, Switch } from 'react-router-dom';
 
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from '../HOC/ProtectedRoute';
 import AuthenticateRoutes from './AuthenticateRoutes';
-import Dashboard from '../views/Dashboard/Dashboard';
-import DashboardLayout from '../layouts/DashboardLayout/DashboardLayout';
+import MainLayout from '../layouts/MainLayout/MainLayout';
+import Channel from '../views/Channel/Channel';
 
 const Root = (): ReactElement => {
     return (
@@ -12,9 +12,9 @@ const Root = (): ReactElement => {
             <AuthenticateRoutes path="/authenticate" />
             <ProtectedRoute
                 component={(): ReactElement => (
-                    <DashboardLayout component={Dashboard} />
+                    <MainLayout component={Channel} />
                 )}
-                path="/dashboard"
+                path="/channel/:id"
             />
             <Redirect to="/authenticate/sign-in" />
         </Switch>

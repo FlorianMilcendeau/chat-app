@@ -11,17 +11,17 @@ module.exports = {
         type: Sequelize.STRING(50),
         allowNull: false,
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'users', key: 'id' },
       },
-      channel_id: {
+      channelId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'channels', key: 'id' },
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },

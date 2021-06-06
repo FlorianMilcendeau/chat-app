@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node -r dotenv/config index",
+    "build": "rm -rf ./build && esbuild ./src/app.js --bundle --platform=node --external:nock --external:pg-hstore --external:mock-aws-s3 --external:aws-sdk --outfile=build/index.js",
+    "start": "node -r dotenv/config ./build/index.js",
     "start:dev": "nodemon -r dotenv/config ./src/app.js",
     "lint": "./node_modules/.bin/eslint --ext ./src/**/*.js"
   },
@@ -16,6 +17,7 @@
     "compression": "^1.7.4",
     "debug": "^4.3.1",
     "dotenv": "^8.2.0",
+    "esbuild": "^0.12.9",
     "express": "^4.17.1",
     "express-validator": "^6.10.1",
     "helmet": "^4.6.0",
