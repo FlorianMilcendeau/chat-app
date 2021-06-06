@@ -1,0 +1,8 @@
+.channelItem {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 0.5rem;
+}

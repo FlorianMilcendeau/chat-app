@@ -15,17 +15,22 @@
     display: flex;
     align-items: center;
     background-color: var(--colorBackground);
-    box-shadow: 0px 1px 5px var(--colorLabel);
+    box-shadow: 0px 1.4px 4px var(--colorLabel);
+    border-radius: 0.3rem;
+    margin: 0.5rem 0.3rem;
 }
 
-.banner > h2 {
+.banner > h3 {
     margin: 0;
-    margin-left: 2.5rem;
+    margin-left: 1.5rem;
 }
 
 .menu {
     grid-area: menu;
-    background-color: rgb(36, 146, 219);
+    background-color: var(--colorBackground);
+    box-shadow: 0px 1.4px 4px var(--colorLabel);
+    border-radius: 0.3rem;
+    margin: 0.5rem 0.3rem;
 }
 
 .messageArea {
@@ -33,4 +38,7 @@
     display: flex;
     flex-direction: column-reverse;
     background-color: var(--colorBackground);
+    box-shadow: 0px 1.4px 4px var(--colorLabel);
+    border-radius: 0.3rem;
+    margin: 0.5rem 0.3rem;
 }

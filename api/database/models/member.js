@@ -16,13 +16,14 @@ module.exports = (sequelize, DataTypes) => {
   member.init(
     {
       role: { type: DataTypes.STRING(30), allowNull: false },
-      user_id: { type: DataTypes.INTEGER, allowNull: false },
-      channel_id: { type: DataTypes.INTEGER, allowNull: false },
-      created_at: { type: DataTypes.DATE, allowNull: false, defaultValue: new Date() },
+      userId: { type: DataTypes.INTEGER, allowNull: false },
+      channelId: { type: DataTypes.INTEGER, allowNull: false },
+      createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: new Date() },
     },
     {
       sequelize,
       modelName: 'member',
+      timestamps: false,
     }
   );
   return member;

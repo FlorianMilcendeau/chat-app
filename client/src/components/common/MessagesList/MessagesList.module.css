@@ -1,0 +1,34 @@
+.wrapperMessage {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 1.5rem;
+    transition: all 0.15s linear;
+}
+
+.messageContent {
+    flex: 1;
+}
+
+.messageAuthor {
+    font-weight: bold;
+    color: var(--colorLabel);
+}
+
+.messageCreatedAt {
+    font-size: var(--lengthSm3);
+    color: var(--colorLabel);
+}
+
+.message {
+    color: var(--colorText);
+    margin-top: 0.5rem;
+    word-break: break-word;
+    margin-bottom: 0;
+}
+
+@media screen and (min-width: 768px) {
+    .wrapperMessage {
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.25rem;
+    }
+}

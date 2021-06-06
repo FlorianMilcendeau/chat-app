@@ -36,12 +36,12 @@ class Api {
      * @method
      * @param {string} path
      */
-    public async get(path: string) {
+    public async get<T>(path: string): Promise<AxiosResponse<T>> {
         const response = await this.instance.get(path, {
             headers: { Authorization: this.token },
         });
 
-        return response;
+        return response as AxiosResponse<T>;
     }
 
     /**
