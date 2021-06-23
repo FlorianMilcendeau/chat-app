@@ -16,13 +16,14 @@ module.exports = (sequelize, DataTypes) => {
   message.init(
     {
       content: { type: DataTypes.TEXT, allowNull: false },
-      user_id: { type: DataTypes.INTEGER, allowNull: false },
-      channel_id: { type: DataTypes.INTEGER, allowNull: false },
-      created_at: { type: DataTypes.DATE, allowNull: false, defaultValue: new Date() },
+      userId: { type: DataTypes.INTEGER, allowNull: false },
+      channelId: { type: DataTypes.INTEGER, allowNull: false },
+      createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: new Date() },
     },
     {
       sequelize,
       modelName: 'message',
+      timestamps: false,
     }
   );
   return message;

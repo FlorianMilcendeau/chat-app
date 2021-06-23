@@ -18,10 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       name: { type: DataTypes.STRING(50), allowNull: false },
       email: { type: DataTypes.STRING(50), allowNull: false, unique: true },
       password: { type: DataTypes.STRING(255), allowNull: false },
-      is_admin: { type: DataTypes.BOOLEAN, defaultValue: 0 },
-      created_at: { type: DataTypes.DATE, allowNull: false, defaultValue: new Date() },
+      isAdmin: { type: DataTypes.BOOLEAN, defaultValue: 0 },
+      createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: new Date() },
     },
-    { sequelize, modelName: 'user', underscored: true, timestamps: false }
+    { sequelize, modelName: 'user', timestamps: false }
   );
   return user;
 };

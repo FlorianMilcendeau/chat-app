@@ -1,5 +1,5 @@
 .SILENT:
-.PHONY: help container_up container_down migration_status
+.PHONY: help start stop test create_db drop_db migration_status migration migration_undo migration_undo_all seed_all seed_undo seed_undo_all client api cypress
 
 ENV ?= dev
 DC   = docker-compose -f docker-compose.$(ENV).yml
@@ -38,10 +38,18 @@ client: ## Exec container client
 api: ## Exec container api
 	$(DC) exec api $(filter-out $@,$(MAKECMDGOALS))
 
-cypress: ## Exec container api
+cypress: ## Exec container cypress
 	$(DC) run cypress $(filter-out $@,$(MAKECMDGOALS))
 
 ##@ Database
+create_db: ## Create database
+	echo "$(OK_COLOR)Create database$(NO_COLOR)"
+	$(DC) exec api npx sequelize-cli db:create
+
+drop_db: ## Drop database
+	echo "$(WARN_COLOR)Drop database$(NO_COLOR)"
+	$(DC) exec api npx sequelize-cli db:drop
+
 migration_status: ## List the status of all migrations
 	echo "$(OK_COLOR)List the status of all migrations$(NO_COLOR)"
 	$(DC) exec api npx sequelize-cli db:migrate:status
