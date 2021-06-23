@@ -1,4 +1,9 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, {
+    ReactElement,
+    useEffect,
+    useLayoutEffect,
+    useState,
+} from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -53,7 +58,7 @@ const Channel = ({
         }
     }, [channelId]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         onMessage((data) => {
             addMessage(data);
         });
@@ -110,4 +115,7 @@ const mapDispatchToProps = (
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type TConnectedProps = ConnectedProps<typeof connector>;
 
-export default connector(Loading<TConnectedProps>('channels')(Channel));
+
+export default connector(
+    Loading<TConnectedProps>('channels')(React.memo(Channel)),
+);

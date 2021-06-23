@@ -1,5 +1,5 @@
 .SILENT:
-.PHONY: help start stop test create_db drop_db migration_status migration migration_undo migration_undo_all seed_all seed_undo seed_undo_all client api cypress
+.PHONY: help start stop logs test create_db drop_db migration_status migration migration_undo migration_undo_all seed_all seed_undo seed_undo_all client api cypress
 
 ENV ?= dev
 DC   = docker-compose -f docker-compose.$(ENV).yml
@@ -27,6 +27,10 @@ start: ## Launch Docker containers
 
 stop: ## Down Docker containers 
 	$(DC) down
+
+logs: ## Show logs
+	$(DC) logs $(filter-out $@,$(MAKECMDGOALS))
+
 
 test: ## Exec test
 	echo "$(OK_COLOR)Exec test$(NO_COLOR)"

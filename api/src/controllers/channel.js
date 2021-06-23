@@ -52,12 +52,16 @@ router.get('/:id', verifyToken, async (req, res) => {
         },
       ],
     });
-    const channel = channelEntity.get({ plain: true });
 
-    res.status(200).json({ channel });
+    if (channelEntity) {
+      const channel = channelEntity.get({ plain: true });
+      return res.status(200).json({ channel });
+    }
+
+    return res.status(404).end();
   } catch (e) {
     debugLog(e);
-    res.status(500).json({ message: 'error server' });
+    return res.status(500).json({ message: 'error server' });
   }
 });
 

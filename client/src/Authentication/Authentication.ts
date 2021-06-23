@@ -1,5 +1,6 @@
 import type { rootState } from '../redux';
 import type { Env } from '../redux/env/types';
+import { decode } from '../utils/jsonWebToken';
 
 /**
  * @class Authentication
@@ -38,8 +39,23 @@ class Authentication {
         cb();
     }
 
-    public get isAuthenticate() {
+    public get isAuthenticate(): boolean {
         return this.authenticate;
+    }
+
+    public get isTokenExpired(): boolean {
+        const token = this.getToken;
+
+        if (typeof token === 'string') {
+            const payload = decode(token);
+            console.log(payload);
+
+            if (payload.exp > Date.now()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 
