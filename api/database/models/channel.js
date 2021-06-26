@@ -17,11 +17,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: { type: DataTypes.STRING(50), allowNull: false },
       describe: { type: DataTypes.STRING(300), allowNull: true },
-      created_at: { type: DataTypes.DATE, allowNull: false, defaultValue: new Date() },
+      createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: new Date() },
     },
     {
       sequelize,
       modelName: 'channel',
+      timestamps: false,
     }
   );
   return channel;

@@ -17,7 +17,7 @@ svg.l {
 }
 
 svg.primary {
-    color: var(--colorBlue);
+    fill: var(--colorBlue);
 }
 
 svg.white {

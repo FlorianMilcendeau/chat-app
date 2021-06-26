@@ -2,12 +2,11 @@ import { Action, Dispatch } from 'redux';
 import type { ThunkAction } from 'redux-thunk';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { push } from 'connected-react-router';
-import { v4 as uuidv4 } from 'uuid';
 
 /** Types */
 import type { ResponseAuth, User, UserLogin, UserRegister } from './types';
 import type { INotify } from '../notification/types';
-import type { rootState } from '..';
+import { history, rootState } from '..';
 
 /** Actions */
 import { setToken } from '../env/actions';
@@ -45,10 +44,9 @@ export const userLogin = (
 
         dispatch(setToken(token.token));
         dispatch(setUserSuccess(userInfo));
-        Authentication.logIn(() => dispatch(push('/dashboard')));
+        Authentication.logIn(() => dispatch(push('/channel/1')));
 
         dispatch(connectSocket());
-        dispatch(joinChannel(uuidv4()));
         dispatch(stopLoadingUser());
     } catch (error) {
         Authentication.logOut(() => dispatch(push('/authenticate/sign-in')));
@@ -88,7 +86,7 @@ export const userRegister = (
 
         dispatch(setToken(token.token));
         dispatch(setUserSuccess(userInfo));
-        Authentication.logIn(() => dispatch(push('/dashboard')));
+        Authentication.logIn(() => dispatch(push('/channel/1')));
 
         dispatch(stopLoadingUser());
     } catch (error) {
@@ -133,14 +131,11 @@ export const verifyToken = (): ThunkAction<
         const { user: userInfo } = response.data;
 
         dispatch(setUserSuccess(userInfo));
+
         Authentication.logIn(() =>
-            dispatch(
-                push(
-                    window.location.pathname !== pathname
-                        ? window.location.pathname
-                        : pathname,
-                ),
-            ),
+            pathname === '/authenticate/sign-in'
+                ? history.goBack()
+                : dispatch(push(pathname)),
         );
 
         dispatch(stopLoadingUser());
